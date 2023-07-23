@@ -1,0 +1,9 @@
+{
+	"alpha": "valueAlpha",
+	"beta": "valueBeta",
+	"delta": {
+		"deltaTwo": "two"
+	},
+	"fries": "fat eating",
+	"Corry": "curry"
+}
