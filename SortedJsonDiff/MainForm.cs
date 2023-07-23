@@ -22,5 +22,12 @@ namespace SortedJsonDiff
             aJsonUserControl.Filename = @"..\..\TestFiles\a.json";
             bJsonUserControl.Filename = @"..\..\TestFiles\b.json";
         }
+
+        private void sortButton_Click(object sender, EventArgs e)
+        {
+            var jsonSorter = new JsonSorter();
+            aJsonUserControl.JSON = jsonSorter.LoadJsonContent(aJsonUserControl.JSON);
+            bJsonUserControl.JSON = jsonSorter.LoadJsonContent(bJsonUserControl.JSON);
+        }
     }
 }

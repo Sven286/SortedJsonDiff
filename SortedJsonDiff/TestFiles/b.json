@@ -2,7 +2,8 @@
 	"alpha": "valueAlpha",
 	"beta": "valueBeta",
 	"delta": {
-		"deltaTwo": "two"
+		"deltaTwo": "two",
+		"accu": "battery"
 	},
 	"fries": "fat eating",
 	"Corry": "curry"

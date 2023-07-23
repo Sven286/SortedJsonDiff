@@ -30,11 +30,11 @@
         {
             this.CompareButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.bJsonUserControl = new SortedJsonDiff.JsonUserControl();
-            this.aJsonUserControl = new SortedJsonDiff.JsonUserControl();
             this.sortButton = new System.Windows.Forms.Button();
             this.comparerCommandTextBox = new System.Windows.Forms.TextBox();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.aJsonUserControl = new SortedJsonDiff.JsonUserControl();
+            this.bJsonUserControl = new SortedJsonDiff.JsonUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -60,22 +60,6 @@
             this.textBox1.Size = new System.Drawing.Size(76, 20);
             this.textBox1.TabIndex = 2;
             // 
-            // bJsonUserControl
-            // 
-            this.bJsonUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bJsonUserControl.Location = new System.Drawing.Point(0, 0);
-            this.bJsonUserControl.Name = "bJsonUserControl";
-            this.bJsonUserControl.Size = new System.Drawing.Size(397, 318);
-            this.bJsonUserControl.TabIndex = 0;
-            // 
-            // aJsonUserControl
-            // 
-            this.aJsonUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.aJsonUserControl.Location = new System.Drawing.Point(0, 0);
-            this.aJsonUserControl.Name = "aJsonUserControl";
-            this.aJsonUserControl.Size = new System.Drawing.Size(378, 318);
-            this.aJsonUserControl.TabIndex = 0;
-            // 
             // sortButton
             // 
             this.sortButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -86,6 +70,7 @@
             this.sortButton.TabIndex = 1;
             this.sortButton.Text = "Sort";
             this.sortButton.UseVisualStyleBackColor = true;
+            this.sortButton.Click += new System.EventHandler(this.sortButton_Click);
             // 
             // comparerCommandTextBox
             // 
@@ -113,6 +98,26 @@
             this.splitContainer.Size = new System.Drawing.Size(779, 318);
             this.splitContainer.SplitterDistance = 378;
             this.splitContainer.TabIndex = 4;
+            // 
+            // aJsonUserControl
+            // 
+            this.aJsonUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.aJsonUserControl.Filename = "";
+            this.aJsonUserControl.JSON = "";
+            this.aJsonUserControl.Location = new System.Drawing.Point(0, 0);
+            this.aJsonUserControl.Name = "aJsonUserControl";
+            this.aJsonUserControl.Size = new System.Drawing.Size(378, 318);
+            this.aJsonUserControl.TabIndex = 0;
+            // 
+            // bJsonUserControl
+            // 
+            this.bJsonUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bJsonUserControl.Filename = "";
+            this.bJsonUserControl.JSON = "";
+            this.bJsonUserControl.Location = new System.Drawing.Point(0, 0);
+            this.bJsonUserControl.Name = "bJsonUserControl";
+            this.bJsonUserControl.Size = new System.Drawing.Size(397, 318);
+            this.bJsonUserControl.TabIndex = 0;
             // 
             // MainForm
             // 
