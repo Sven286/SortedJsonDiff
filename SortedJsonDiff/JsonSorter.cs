@@ -49,7 +49,6 @@ namespace SortedJsonDiff
 
                         foreach (JsonProperty property in root.EnumerateObject().OrderBy(jp => jp.Name))
                         {
-                            //if (property.)
                             property.WriteTo(writer);
                         }
 
