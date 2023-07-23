@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiffResult.cs" />
+    <Compile Include="DiffStatus.cs" />
     <Compile Include="JsonSorter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -90,6 +92,7 @@
     <Compile Include="JsonUserControl.Designer.cs">
       <DependentUpon>JsonUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyersDiffAlgorithm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
