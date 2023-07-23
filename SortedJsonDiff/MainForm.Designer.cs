@@ -35,10 +35,16 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.aJsonUserControl = new SortedJsonDiff.JsonUserControl();
             this.bJsonUserControl = new SortedJsonDiff.JsonUserControl();
+            this.rtbComparisonResult = new System.Windows.Forms.RichTextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CompareButton
@@ -51,6 +57,7 @@
             this.CompareButton.TabIndex = 1;
             this.CompareButton.Text = "Compare";
             this.CompareButton.UseVisualStyleBackColor = true;
+            this.CompareButton.Click += new System.EventHandler(this.CompareButton_Click);
             // 
             // textBox1
             // 
@@ -82,10 +89,8 @@
             // 
             // splitContainer
             // 
-            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer.Location = new System.Drawing.Point(12, 67);
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -95,8 +100,8 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.bJsonUserControl);
-            this.splitContainer.Size = new System.Drawing.Size(779, 318);
-            this.splitContainer.SplitterDistance = 378;
+            this.splitContainer.Size = new System.Drawing.Size(792, 161);
+            this.splitContainer.SplitterDistance = 384;
             this.splitContainer.TabIndex = 4;
             // 
             // aJsonUserControl
@@ -106,7 +111,7 @@
             this.aJsonUserControl.JSON = "";
             this.aJsonUserControl.Location = new System.Drawing.Point(0, 0);
             this.aJsonUserControl.Name = "aJsonUserControl";
-            this.aJsonUserControl.Size = new System.Drawing.Size(378, 318);
+            this.aJsonUserControl.Size = new System.Drawing.Size(384, 161);
             this.aJsonUserControl.TabIndex = 0;
             // 
             // bJsonUserControl
@@ -116,15 +121,44 @@
             this.bJsonUserControl.JSON = "";
             this.bJsonUserControl.Location = new System.Drawing.Point(0, 0);
             this.bJsonUserControl.Name = "bJsonUserControl";
-            this.bJsonUserControl.Size = new System.Drawing.Size(397, 318);
+            this.bJsonUserControl.Size = new System.Drawing.Size(404, 161);
             this.bJsonUserControl.TabIndex = 0;
+            // 
+            // rtbComparisonResult
+            // 
+            this.rtbComparisonResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbComparisonResult.Location = new System.Drawing.Point(0, 0);
+            this.rtbComparisonResult.Name = "rtbComparisonResult";
+            this.rtbComparisonResult.Size = new System.Drawing.Size(792, 157);
+            this.rtbComparisonResult.TabIndex = 5;
+            this.rtbComparisonResult.Text = "";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(9, 79);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.rtbComparisonResult);
+            this.splitContainer1.Size = new System.Drawing.Size(792, 322);
+            this.splitContainer1.SplitterDistance = 161;
+            this.splitContainer1.TabIndex = 6;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 478);
-            this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.comparerCommandTextBox);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.sortButton);
@@ -137,6 +171,10 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +188,8 @@
         private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.TextBox comparerCommandTextBox;
         private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.RichTextBox rtbComparisonResult;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 

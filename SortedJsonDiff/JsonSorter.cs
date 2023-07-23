@@ -1,65 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SortedJsonDiff
 {
     public class JsonSorter
     {
 
-        public string LoadJsonContent(string jsonString)
+        public string LoadJsonContent(string json)
         {
-            string result = null;
-            var writerOptions = new JsonWriterOptions
-            {
-                Indented = true,
-                
-            };
+            JObject jsonObject = JObject.Parse(json);
 
-            var documentOptions = new JsonDocumentOptions
-            {
-                CommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-            };
+            SortPropertiesRecursively(jsonObject);
 
-            //using (FileStream stream = File.Create("a.json"))
-            using (var stream = new MemoryStream())
+            string sortedJson = FormatJson(jsonObject);
+            return sortedJson;
+        }
+
+        static void SortPropertiesRecursively(JObject obj)
+        {
+            // Sort properties at the current level
+            IList<JProperty> sortedProperties = obj.Properties().OrderBy(p => p.Name).ToList();
+
+            // Remove all properties from the object
+            obj.RemoveAll();
+
+            // Add sorted properties back to the object
+            foreach (var property in sortedProperties)
             {
-                using (var writer = new Utf8JsonWriter(stream, options: writerOptions))
+                obj.Add(property);
+                if (property.Value.Type == JTokenType.Object)
                 {
-                    using (JsonDocument document = JsonDocument.Parse(jsonString, documentOptions))
-                    {
-
-
-
-                        JsonElement root = document.RootElement;
-
-                        if (root.ValueKind == JsonValueKind.Object)
-                        {
-                            writer.WriteStartObject();
-                        }
-                        else
-                        {
-                            return result;
-                        }
-
-                        foreach (JsonProperty property in root.EnumerateObject().OrderBy(jp => jp.Name))
-                        {
-                            property.WriteTo(writer);
-                        }
-
-                        writer.WriteEndObject();
-
-                    }
-                        writer.Flush();
+                    // Recursively sort properties in nested objects
+                    SortPropertiesRecursively((JObject)property.Value);
                 }
-                result = Encoding.UTF8.GetString(stream.ToArray());
+                else if (property.Value.Type == JTokenType.Array)
+                {
+                    // Recursively sort properties in arrays of objects
+                    foreach (var item in (JArray)property.Value)
+                    {
+                        if (item.Type == JTokenType.Object)
+                        {
+                            SortPropertiesRecursively((JObject)item);
+                        }
+                    }
+                }
             }
-            return result;
+        }
+
+        static string FormatJson(JObject obj)
+        {
+            using (var stringWriter = new StringWriter())
+            {
+                using (var jsonWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonWriter.Formatting = Formatting.Indented;
+                    jsonWriter.IndentChar = '\t';
+                    jsonWriter.Indentation = 1;
+
+                    obj.WriteTo(jsonWriter);
+                }
+
+                return stringWriter.ToString();
+            }
         }
     }
 }
