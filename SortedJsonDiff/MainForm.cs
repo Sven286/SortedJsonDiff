@@ -24,9 +24,24 @@ namespace SortedJsonDiff
             bJsonUserControl.Filename = @"..\..\TestFiles\b.json";
         }
 
+        private void ApplyCustomSettings(JsonUserControl jsonUserControl)
+        {
+            if (encapsulateArrayCheckBox.Checked)
+            {
+                if (jsonUserControl.JSON.StartsWith("["))
+                {
+                    jsonUserControl.JSON = $"{{objects: {jsonUserControl.JSON} }}";
+				}
+            }
+
+        }
+
         private void sortButton_Click(object sender, EventArgs e)
         {
-            var jsonSorter = new JsonSorter();
+            ApplyCustomSettings(aJsonUserControl);
+			ApplyCustomSettings(bJsonUserControl);
+
+			var jsonSorter = new JsonSorter();
             aJsonUserControl.JSON = jsonSorter.LoadJsonContent(aJsonUserControl.JSON);
             bJsonUserControl.JSON = jsonSorter.LoadJsonContent(bJsonUserControl.JSON);
         }

@@ -14,42 +14,69 @@ namespace SortedJsonDiff
         {
             JObject jsonObject = JObject.Parse(json);
 
-            SortPropertiesRecursively(jsonObject);
+            var sorted = SortPropertiesRecursively(jsonObject);
 
-            string sortedJson = FormatJson(jsonObject);
+            string sortedJson = FormatJson(sorted);
             return sortedJson;
         }
 
-        static void SortPropertiesRecursively(JObject obj)
+        static JObject SortPropertiesRecursively(JObject obj)
         {
-            // Sort properties at the current level
-            IList<JProperty> sortedProperties = obj.Properties().OrderBy(p => p.Name).ToList();
+            var result = new JObject();
+
+			// Sort properties at the current level
+			IList<JProperty> sortedProperties = obj.Properties().OrderBy(p => p.Name).ToList();
 
             // Remove all properties from the object
-            obj.RemoveAll();
+            //obj.RemoveAll();
 
             // Add sorted properties back to the object
             foreach (var property in sortedProperties)
             {
-                obj.Add(property);
+                //obj.Add(property);
                 if (property.Value.Type == JTokenType.Object)
                 {
-                    // Recursively sort properties in nested objects
-                    SortPropertiesRecursively((JObject)property.Value);
+					// Recursively sort properties in nested objects
+					result.Add(property.Name, SortPropertiesRecursively((JObject)property.Value));
                 }
                 else if (property.Value.Type == JTokenType.Array)
                 {
                     // Recursively sort properties in arrays of objects
-                    foreach (var item in (JArray)property.Value)
+                    var array = property.Value.AsJEnumerable();
+
+                    //var v = property.Value.Values();
+                    //var h = property.Value.HasValues;
+                    //var a = property.Value.Ancestors();
+                    var c = property.Value.Children<JObject>();
+                    var p = c.Any(cd => cd.ContainsKey("path"));
+
+                    if (p)
+                    {
+                        array = array.OrderBy(j => j.Value<string>("path")).AsJEnumerable();
+
+					}
+
+                    var newArray = new JArray();
+					foreach (var item in array)
                     {
                         if (item.Type == JTokenType.Object)
                         {
-                            SortPropertiesRecursively((JObject)item);
+							newArray.Add(SortPropertiesRecursively((JObject)item));
                         }
+                        else
+                        {
+                            newArray.Add(item);
+						}
                     }
+                    result.Add(property.Name, newArray);
+                }
+                else
+                {
+                    result.Add(property);
                 }
             }
-        }
+            return result;
+		}
 
         static string FormatJson(JObject obj)
         {
